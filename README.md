@@ -84,17 +84,4 @@ Autonomous multi-agent coding system — writes, runs, and fixes its own code.
 
 ---
 
-### 📊 GitHub Stats
-
-<p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=Harsh251005&show_icons=true&theme=default&hide_border=true&count_private=true" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Harsh251005&layout=compact&hide_border=true&langs_count=8" />
-</p>
-
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Harsh251005&hide_border=true" alt="streak stats"/>
-</p>
-
----
-
 <p align="center"><i>Open to Applied AI Engineer roles at early-stage startups — building agentic and RAG-based products. Let's talk.</i></p>
