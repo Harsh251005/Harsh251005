@@ -3,6 +3,8 @@
 Edit CARDS or the header text below, then run:  python3 assets/build.py
 The images are dark by design, so they read the same on GitHub's light and
 dark themes (theme-switching <picture> tags break side-by-side widths).
+Phones get header-mobile.svg through <picture>; the cards and the wide header
+also switch to a compact layout by themselves when drawn small.
 """
 
 import math
@@ -59,61 +61,120 @@ CARDS = [
 ]
 
 
-def header(t: dict) -> str:
-    """1000x260 banner: an animated voice waveform beside the name."""
+ANIMATION = """
+    .bar { transform-box: fill-box; transform-origin: center; animation: talk 1.4s ease-in-out infinite; }
+    @keyframes talk { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.35); } }
+    .cursor { animation: blink 1.1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .bar, .cursor { animation: none; } }"""
+
+# An SVG's media queries measure the size the image is drawn at, not the
+# screen. Below these widths (in CSS px) the images switch to a compact
+# layout with less text, set larger.
+HEADER_COMPACT_BELOW = 560
+CARD_COMPACT_BELOW = 260
+
+
+def waveform(t: dict, n: int, x0: float, gap: float, w: float, cy: float, amp: float) -> str:
+    """Animated bars with a speech-like envelope: louder in the middle, uneven bar to bar."""
     bars = []
-    n, x0, gap, w = 30, 64, 10, 5
     for i in range(n):
-        # A speech-like envelope: louder in the middle, uneven from bar to bar.
         env = math.sin(math.pi * (i + 0.5) / n)
-        h = 18 + 90 * env * (0.55 + 0.45 * abs(math.sin(i * 1.7)))
-        x = x0 + i * gap
+        h = amp * 0.2 + amp * env * (0.55 + 0.45 * abs(math.sin(i * 1.7)))
         delay = (i * 0.07) % 1.4
         color = t["accent"] if i % 7 else t["accent2"]
         bars.append(
-            f'<rect class="bar" x="{x}" y="{130 - h / 2:.1f}" width="{w}" height="{h:.1f}" rx="2.5" '
+            f'<rect class="bar" x="{x0 + i * gap:.1f}" y="{cy - h / 2:.1f}" width="{w}" height="{h:.1f}" rx="{w / 2}" '
             f'fill="{color}" style="animation-delay:-{delay:.2f}s"/>'
         )
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="260" viewBox="0 0 1000 260" role="img" aria-label="Harsh Dharnidharka, Applied AI Engineer">
-  <style>
-    .bar {{ transform-box: fill-box; transform-origin: center; animation: talk 1.4s ease-in-out infinite; }}
-    @keyframes talk {{ 0%, 100% {{ transform: scaleY(1); }} 50% {{ transform: scaleY(0.35); }} }}
-    .cursor {{ animation: blink 1.1s steps(1) infinite; }}
-    @keyframes blink {{ 50% {{ opacity: 0; }} }}
-    @media (prefers-reduced-motion: reduce) {{ .bar, .cursor {{ animation: none; }} }}
+    return "".join(bars)
+
+
+def tagline_end(t: dict) -> str:
+    accent = t["accent"]
+    return f'I build the system around them<tspan fill="{accent}">.</tspan><tspan class="cursor" fill="{accent}"> ▍</tspan>'
+
+
+def header(t: dict) -> str:
+    """1000x260 banner: an animated voice waveform beside the name.
+
+    When drawn narrower than HEADER_COMPACT_BELOW px it drops the waveform and
+    sets the name and tagline larger, across the full width."""
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="260" viewBox="0 0 1000 260" role="img" aria-label="Harsh Dharnidharka, Applied AI Engineer. Prompts are a draft. I build the system around them.">
+  <style>{ANIMATION}
+    .compact {{ display: none; }}
+    @media (max-width: {HEADER_COMPACT_BELOW}px) {{ .full {{ display: none; }} .compact {{ display: inline; }} }}
   </style>
   <rect x="0.5" y="0.5" width="999" height="259" rx="16" fill="{t['bg']}" stroke="{t['line']}"/>
-  {''.join(bars)}
-  <line x1="390" y1="56" x2="390" y2="204" stroke="{t['line']}"/>
-  <text x="426" y="78" font-family="{MONO}" font-size="13" letter-spacing="3" fill="{t['muted']}">APPLIED AI ENGINEER · MUMBAI</text>
-  <text x="424" y="132" font-family="{SANS}" font-size="46" font-weight="700" fill="{t['text']}">Harsh Dharnidharka</text>
-  <text x="426" y="172" font-family="{SANS}" font-size="20" fill="{t['muted']}">Prompts are a draft.</text>
-  <text x="426" y="200" font-family="{SANS}" font-size="20" fill="{t['muted']}">I build the system around them<tspan fill="{t['accent']}">.</tspan><tspan class="cursor" fill="{t['accent']}"> ▍</tspan></text>
+  <g class="full">
+    {waveform(t, 30, 64, 10, 5, 130, 90)}
+    <line x1="390" y1="56" x2="390" y2="204" stroke="{t['line']}"/>
+    <text x="426" y="78" font-family="{MONO}" font-size="13" letter-spacing="3" fill="{t['muted']}">APPLIED AI ENGINEER · MUMBAI</text>
+    <text x="424" y="132" font-family="{SANS}" font-size="46" font-weight="700" fill="{t['text']}">Harsh Dharnidharka</text>
+    <text x="426" y="172" font-family="{SANS}" font-size="20" fill="{t['muted']}">Prompts are a draft.</text>
+    <text x="426" y="200" font-family="{SANS}" font-size="20" fill="{t['muted']}">{tagline_end(t)}</text>
+  </g>
+  <g class="compact">
+    {waveform(t, 16, 60, 14, 7, 52, 34)}
+    <text x="58" y="138" font-family="{SANS}" font-size="78" font-weight="700" fill="{t['text']}">Harsh Dharnidharka</text>
+    <text x="60" y="190" font-family="{SANS}" font-size="38" fill="{t['muted']}">Prompts are a draft.</text>
+    <text x="60" y="234" font-family="{SANS}" font-size="38" fill="{t['muted']}">{tagline_end(t)}</text>
+  </g>
+</svg>
+"""
+
+
+def header_mobile(t: dict) -> str:
+    """600x440 stacked banner, served to phones through <picture>."""
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="600" height="440" viewBox="0 0 600 440" role="img" aria-label="Harsh Dharnidharka, Applied AI Engineer. Prompts are a draft. I build the system around them.">
+  <style>{ANIMATION}</style>
+  <rect x="0.5" y="0.5" width="599" height="439" rx="20" fill="{t['bg']}" stroke="{t['line']}"/>
+  {waveform(t, 30, 52, 17, 8, 112, 120)}
+  <text x="50" y="236" font-family="{MONO}" font-size="18" letter-spacing="3.5" fill="{t['muted']}">APPLIED AI ENGINEER · MUMBAI</text>
+  <text x="48" y="296" font-family="{SANS}" font-size="48" font-weight="700" fill="{t['text']}">Harsh Dharnidharka</text>
+  <text x="50" y="350" font-family="{SANS}" font-size="30" fill="{t['muted']}">Prompts are a draft.</text>
+  <text x="50" y="390" font-family="{SANS}" font-size="30" fill="{t['muted']}">{tagline_end(t)}</text>
 </svg>
 """
 
 
 def card(c: dict, t: dict) -> str:
-    """480x230 project card: what it is, the one fact that proves it, the stack."""
+    """480x230 project card: what it is, the one fact that proves it, the stack.
+
+    When drawn narrower than CARD_COMPACT_BELOW px (two cards side by side on
+    a phone) it keeps only the name and the number, set large enough to read."""
     big, small = c["metric"]
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="480" height="230" viewBox="0 0 480 230" role="img" aria-label="{escape(c['name'])}: {escape(c['line'])}">
+  <style>
+    .compact {{ display: none; }}
+    @media (max-width: {CARD_COMPACT_BELOW}px) {{ .full {{ display: none; }} .compact {{ display: inline; }} }}
+  </style>
   <rect x="0.5" y="0.5" width="479" height="229" rx="14" fill="{t['panel']}" stroke="{t['line']}"/>
-  <circle cx="32" cy="36" r="3.5" fill="{t['accent']}"/>
-  <text x="44" y="40" font-family="{MONO}" font-size="11" letter-spacing="2.5" fill="{t['accent']}">{escape(c['kicker'])}</text>
-  <text x="28" y="72" font-family="{SANS}" font-size="26" font-weight="700" fill="{t['text']}">{escape(c['name'])}</text>
-  <text x="28" y="100" font-family="{SANS}" font-size="15" fill="{t['muted']}">{escape(c['line'])}</text>
-  <line x1="28" y1="122" x2="452" y2="122" stroke="{t['line']}"/>
-  <text x="28" y="162" font-family="{SANS}" font-size="30" font-weight="700" fill="{t['text']}">{escape(big)}</text>
-  <text x="28" y="182" font-family="{MONO}" font-size="11" fill="{t['muted']}">{escape(small)}</text>
-  <text x="168" y="158" font-family="{SANS}" font-size="14" fill="{t['text']}">{escape(c['proof'][0])}</text>
-  <text x="168" y="178" font-family="{SANS}" font-size="14" fill="{t['muted']}">{escape(c['proof'][1])}</text>
-  <text x="28" y="212" font-family="{MONO}" font-size="11.5" fill="{t['muted']}">{escape(c['stack'])}</text>
+  <g class="full">
+    <circle cx="32" cy="36" r="3.5" fill="{t['accent']}"/>
+    <text x="44" y="40" font-family="{MONO}" font-size="11" letter-spacing="2.5" fill="{t['accent']}">{escape(c['kicker'])}</text>
+    <text x="28" y="72" font-family="{SANS}" font-size="26" font-weight="700" fill="{t['text']}">{escape(c['name'])}</text>
+    <text x="28" y="100" font-family="{SANS}" font-size="15" fill="{t['muted']}">{escape(c['line'])}</text>
+    <line x1="28" y1="122" x2="452" y2="122" stroke="{t['line']}"/>
+    <text x="28" y="162" font-family="{SANS}" font-size="30" font-weight="700" fill="{t['text']}">{escape(big)}</text>
+    <text x="28" y="182" font-family="{MONO}" font-size="11" fill="{t['muted']}">{escape(small)}</text>
+    <text x="168" y="158" font-family="{SANS}" font-size="14" fill="{t['text']}">{escape(c['proof'][0])}</text>
+    <text x="168" y="178" font-family="{SANS}" font-size="14" fill="{t['muted']}">{escape(c['proof'][1])}</text>
+    <text x="28" y="212" font-family="{MONO}" font-size="11.5" fill="{t['muted']}">{escape(c['stack'])}</text>
+  </g>
+  <g class="compact">
+    <circle cx="40" cy="44" r="8" fill="{t['accent']}"/>
+    <text x="30" y="108" font-family="{SANS}" font-size="50" font-weight="700" fill="{t['text']}">{escape(c['name'])}</text>
+    <text x="30" y="180" font-family="{SANS}" font-size="56" font-weight="700" fill="{t['accent']}">{escape(big)}</text>
+    <text x="32" y="214" font-family="{SANS}" font-size="28" fill="{t['muted']}">{escape(small)}</text>
+  </g>
 </svg>
 """
 
 
 if __name__ == "__main__":
     (OUT / "header.svg").write_text(header(THEME), encoding="utf-8")
+    (OUT / "header-mobile.svg").write_text(header_mobile(THEME), encoding="utf-8")
     for c in CARDS:
         (OUT / f"{c['file']}.svg").write_text(card(c, THEME), encoding="utf-8")
-    print(f"wrote {1 + len(CARDS)} SVGs to {OUT}")
+    print(f"wrote {2 + len(CARDS)} SVGs to {OUT}")

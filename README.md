@@ -1,4 +1,7 @@
-<img src="assets/header.svg" width="100%" alt="Harsh Dharnidharka, Applied AI Engineer. Prompts are a draft. I build the system around them.">
+<picture>
+  <source media="(max-width: 600px)" srcset="assets/header-mobile.svg">
+  <img src="assets/header.svg" width="100%" alt="Harsh Dharnidharka, Applied AI Engineer. Prompts are a draft. I build the system around them.">
+</picture>
 
 <br>
 
