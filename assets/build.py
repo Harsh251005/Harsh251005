@@ -87,8 +87,8 @@ def header(t: dict) -> str:
   <line x1="390" y1="56" x2="390" y2="204" stroke="{t['line']}"/>
   <text x="426" y="78" font-family="{MONO}" font-size="13" letter-spacing="3" fill="{t['muted']}">APPLIED AI ENGINEER · MUMBAI</text>
   <text x="424" y="132" font-family="{SANS}" font-size="46" font-weight="700" fill="{t['text']}">Harsh Dharnidharka</text>
-  <text x="426" y="172" font-family="{SANS}" font-size="20" fill="{t['muted']}">I build AI that listens, retrieves, and</text>
-  <text x="426" y="200" font-family="{SANS}" font-size="20" fill="{t['muted']}">checks its own work<tspan fill="{t['accent']}">.</tspan><tspan class="cursor" fill="{t['accent']}"> ▍</tspan></text>
+  <text x="426" y="172" font-family="{SANS}" font-size="20" fill="{t['muted']}">Prompts are a draft.</text>
+  <text x="426" y="200" font-family="{SANS}" font-size="20" fill="{t['muted']}">I build the system around them<tspan fill="{t['accent']}">.</tspan><tspan class="cursor" fill="{t['accent']}"> ▍</tspan></text>
 </svg>
 """
 

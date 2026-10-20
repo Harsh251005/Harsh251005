@@ -1,4 +1,4 @@
-<img src="assets/header.svg" width="100%" alt="Harsh Dharnidharka, Applied AI Engineer. I build AI that listens, retrieves, and checks its own work.">
+<img src="assets/header.svg" width="100%" alt="Harsh Dharnidharka, Applied AI Engineer. Prompts are a draft. I build the system around them.">
 
 <br>
 
