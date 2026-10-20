@@ -3,11 +3,12 @@
 Edit CARDS or the header text below, then run:  python3 assets/build.py
 The images are dark by design, so they read the same on GitHub's light and
 dark themes (theme-switching <picture> tags break side-by-side widths).
-Phones get header-mobile.svg through <picture>; the cards and the wide header
+Phones get header-mobile.svg and the *-mobile.svg cards through <picture>; the cards and the wide header
 also switch to a compact layout by themselves when drawn small.
 """
 
 import math
+import textwrap
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -172,9 +173,36 @@ def card(c: dict, t: dict) -> str:
 """
 
 
+def card_mobile(c: dict, t: dict) -> str:
+    """480x600 portrait card, served to phones through <picture>. Two still sit
+    side by side, but the taller shape leaves room for text you can read."""
+    big, small = c["metric"]
+
+    def lines(text: str, width: int, x: int, y: int, step: int, size: int, fill: str, weight: str = "400") -> str:
+        return "".join(
+            f'<text x="{x}" y="{y + i * step}" font-family="{SANS}" font-size="{size}" font-weight="{weight}" fill="{fill}">{escape(part)}</text>'
+            for i, part in enumerate(textwrap.wrap(text, width))
+        )
+
+    name_rows = textwrap.wrap(c["name"], 11)
+    y = 136 + (len(name_rows) - 1) * 62
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-label="{escape(c['name'])}: {escape(c['line'])}">
+  <rect x="1" y="1" width="478" height="598" rx="26" fill="{t['panel']}" stroke="{t['line']}" stroke-width="2"/>
+  <circle cx="44" cy="58" r="7" fill="{t['accent']}"/>
+  <text x="62" y="68" font-family="{MONO}" font-size="26" letter-spacing="2" fill="{t['accent']}">{escape(c['kicker'])}</text>
+  {lines(c['name'], 11, 34, 136, 62, 58, t['text'], "700")}
+  {lines(c['line'], 20, 36, y + 64, 46, 38, t['muted'])}
+  <line x1="36" y1="410" x2="444" y2="410" stroke="{t['line']}" stroke-width="2"/>
+  <text x="32" y="504" font-family="{SANS}" font-size="88" font-weight="700" fill="{t['accent']}">{escape(big)}</text>
+  {lines(small, 20, 36, 554, 44, 36, t['muted'])}
+</svg>
+"""
+
+
 if __name__ == "__main__":
     (OUT / "header.svg").write_text(header(THEME), encoding="utf-8")
     (OUT / "header-mobile.svg").write_text(header_mobile(THEME), encoding="utf-8")
     for c in CARDS:
         (OUT / f"{c['file']}.svg").write_text(card(c, THEME), encoding="utf-8")
-    print(f"wrote {2 + len(CARDS)} SVGs to {OUT}")
+        (OUT / f"{c['file']}-mobile.svg").write_text(card_mobile(c, THEME), encoding="utf-8")
+    print(f"wrote {2 + 2 * len(CARDS)} SVGs to {OUT}")
