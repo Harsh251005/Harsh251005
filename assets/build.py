@@ -29,7 +29,8 @@ CARDS = [
         "name": "ClinicDesk",
         "line": "A Hindi voice receptionist for Indian clinics",
         "proof": ("Books only after the caller says yes,", "and the code enforces it, not the prompt."),
-        "metric": ("520+", "backend tests"),
+        "metric": ("~650ms", "p50 voice-to-voice"),
+        "extra": "520+ backend tests",
         "stack": "LiveKit · FastAPI · Postgres · Next.js",
     },
     {
@@ -139,6 +140,13 @@ def header_mobile(t: dict) -> str:
 """
 
 
+def extra(c: dict, x: int, y: int, size: float, fill: str, anchor: str = "start") -> str:
+    """A card's optional second number, set smaller than the metric."""
+    if "extra" not in c:
+        return ""
+    return f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-family="{MONO}" font-size="{size}" fill="{fill}">{escape(c['extra'])}</text>'
+
+
 def card(c: dict, t: dict) -> str:
     """480x230 project card: what it is, the one fact that proves it, the stack.
 
@@ -162,6 +170,7 @@ def card(c: dict, t: dict) -> str:
     <text x="168" y="158" font-family="{SANS}" font-size="14" fill="{t['text']}">{escape(c['proof'][0])}</text>
     <text x="168" y="178" font-family="{SANS}" font-size="14" fill="{t['muted']}">{escape(c['proof'][1])}</text>
     <text x="28" y="212" font-family="{MONO}" font-size="11.5" fill="{t['muted']}">{escape(c['stack'])}</text>
+    {extra(c, 452, 212, 11.5, t['accent'], 'end')}
   </g>
   <g class="compact">
     <circle cx="40" cy="44" r="8" fill="{t['accent']}"/>
@@ -192,6 +201,7 @@ def card_mobile(c: dict, t: dict) -> str:
   <text x="62" y="68" font-family="{MONO}" font-size="26" letter-spacing="2" fill="{t['accent']}">{escape(c['kicker'])}</text>
   {lines(c['name'], 11, 34, 136, 62, 58, t['text'], "700")}
   {lines(c['line'], 20, 36, y + 64, 46, 38, t['muted'])}
+  {extra(c, 36, 384, 26, t['accent'])}
   <line x1="36" y1="410" x2="444" y2="410" stroke="{t['line']}" stroke-width="2"/>
   <text x="32" y="504" font-family="{SANS}" font-size="88" font-weight="700" fill="{t['accent']}">{escape(big)}</text>
   {lines(small, 20, 36, 554, 44, 36, t['muted'])}

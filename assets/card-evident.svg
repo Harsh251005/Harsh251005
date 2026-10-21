@@ -15,6 +15,7 @@
     <text x="168" y="158" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" fill="#e6edf3">Every claim cites its page; CI fails</text>
     <text x="168" y="178" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" fill="#8b949e">any build that scores below 0.80.</text>
     <text x="28" y="212" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="11.5" fill="#8b949e">Qdrant · BM25 + dense · RAGAS</text>
+    
   </g>
   <g class="compact">
     <circle cx="40" cy="44" r="8" fill="#f5a524"/>
