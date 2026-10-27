@@ -28,9 +28,13 @@ CARDS = [
         "kicker": "VOICE AGENT",
         "name": "ClinicDesk",
         "line": "A Hindi voice receptionist for Indian clinics",
-        "proof": ("Books only after the caller says yes,", "and the code enforces it, not the prompt."),
-        "metric": ("~650ms", "p50 voice-to-voice"),
-        "extra": "520+ backend tests",
+        "tiles": [
+            ("~650ms", "p50 voice-to-voice"),
+            ("520+", "backend tests"),
+            ("44", "Playwright browser tests"),
+            ("0", "audio recordings stored"),
+        ],
+        "proof": "Books only after the caller says yes, and the code enforces it, not the prompt.",
         "stack": "LiveKit · FastAPI · Postgres · Next.js",
     },
     {
@@ -38,27 +42,14 @@ CARDS = [
         "kicker": "RAG",
         "name": "Evident AI",
         "line": "Answers over PDFs that cite the page they came from",
-        "proof": ("Every claim cites its page; CI fails", "any build that scores below 0.80."),
-        "metric": ("0.975", "faithfulness"),
+        "tiles": [
+            ("0.975", "faithfulness (RAGAS)"),
+            ("46/50", "questions with grounded citations"),
+            ("0.900", "context recall"),
+            ("0.865", "composite; CI gate is 0.80"),
+        ],
+        "proof": "Every claim cites its page, and CI fails any build below 0.80. Scored on a 50-question golden set.",
         "stack": "Qdrant · BM25 + dense · RAGAS",
-    },
-    {
-        "file": "card-phoenix",
-        "kicker": "MULTI-AGENT",
-        "name": "Phoenix AI",
-        "line": "Describe an app in English, get a project that runs",
-        "proof": ("Writes, runs, critiques, fixes,", "in a network-less Docker sandbox."),
-        "metric": ("5×", "self-repair loops"),
-        "stack": "LangGraph · Docker · FastAPI",
-    },
-    {
-        "file": "card-payment",
-        "kicker": "CONVERSATIONAL AI",
-        "name": "Payment Agent",
-        "line": "Collects a payment end to end, in conversation",
-        "proof": ("The LLM understands the customer;", "a state machine makes every decision."),
-        "metric": ("9", "eval scenarios"),
-        "stack": "OpenAI Structured Outputs · Python",
     },
 ]
 
@@ -71,10 +62,9 @@ ANIMATION = """
     @media (prefers-reduced-motion: reduce) { .bar, .cursor { animation: none; } }"""
 
 # An SVG's media queries measure the size the image is drawn at, not the
-# screen. Below these widths (in CSS px) the images switch to a compact
+# screen. Below this width (in CSS px) the header switches to a compact
 # layout with less text, set larger.
 HEADER_COMPACT_BELOW = 560
-CARD_COMPACT_BELOW = 260
 
 
 def waveform(t: dict, n: int, x0: float, gap: float, w: float, cy: float, amp: float) -> str:
@@ -140,71 +130,69 @@ def header_mobile(t: dict) -> str:
 """
 
 
-def extra(c: dict, x: int, y: int, size: float, fill: str, anchor: str = "start") -> str:
-    """A card's optional second number, set smaller than the metric."""
-    if "extra" not in c:
-        return ""
-    return f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-family="{MONO}" font-size="{size}" fill="{fill}">{escape(c['extra'])}</text>'
-
-
 def card(c: dict, t: dict) -> str:
-    """480x230 project card: what it is, the one fact that proves it, the stack.
-
-    When drawn narrower than CARD_COMPACT_BELOW px (two cards side by side on
-    a phone) it keeps only the name and the number, set large enough to read."""
-    big, small = c["metric"]
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="480" height="230" viewBox="0 0 480 230" role="img" aria-label="{escape(c['name'])}: {escape(c['line'])}">
-  <style>
-    .compact {{ display: none; }}
-    @media (max-width: {CARD_COMPACT_BELOW}px) {{ .full {{ display: none; }} .compact {{ display: inline; }} }}
-  </style>
-  <rect x="0.5" y="0.5" width="479" height="229" rx="14" fill="{t['panel']}" stroke="{t['line']}"/>
-  <g class="full">
-    <circle cx="32" cy="36" r="3.5" fill="{t['accent']}"/>
-    <text x="44" y="40" font-family="{MONO}" font-size="11" letter-spacing="2.5" fill="{t['accent']}">{escape(c['kicker'])}</text>
-    <text x="28" y="72" font-family="{SANS}" font-size="26" font-weight="700" fill="{t['text']}">{escape(c['name'])}</text>
-    <text x="28" y="100" font-family="{SANS}" font-size="15" fill="{t['muted']}">{escape(c['line'])}</text>
-    <line x1="28" y1="122" x2="452" y2="122" stroke="{t['line']}"/>
-    <text x="28" y="162" font-family="{SANS}" font-size="30" font-weight="700" fill="{t['text']}">{escape(big)}</text>
-    <text x="28" y="182" font-family="{MONO}" font-size="11" fill="{t['muted']}">{escape(small)}</text>
-    <text x="168" y="158" font-family="{SANS}" font-size="14" fill="{t['text']}">{escape(c['proof'][0])}</text>
-    <text x="168" y="178" font-family="{SANS}" font-size="14" fill="{t['muted']}">{escape(c['proof'][1])}</text>
-    <text x="28" y="212" font-family="{MONO}" font-size="11.5" fill="{t['muted']}">{escape(c['stack'])}</text>
-    {extra(c, 452, 212, 11.5, t['accent'], 'end')}
-  </g>
-  <g class="compact">
-    <circle cx="40" cy="44" r="8" fill="{t['accent']}"/>
-    <text x="30" y="108" font-family="{SANS}" font-size="50" font-weight="700" fill="{t['text']}">{escape(c['name'])}</text>
-    <text x="30" y="180" font-family="{SANS}" font-size="56" font-weight="700" fill="{t['accent']}">{escape(big)}</text>
-    <text x="32" y="214" font-family="{SANS}" font-size="28" fill="{t['muted']}">{escape(small)}</text>
-  </g>
+    """1000x350 full-width project card: name, four numbers, the one fact that proves it."""
+    tiles = []
+    for i, (big, label) in enumerate(c["tiles"]):
+        x = 32 + i * 236
+        rows = "".join(
+            f'<text x="{x}" y="{256 + j * 20}" font-family="{MONO}" font-size="14" fill="{t["muted"]}">{escape(part)}</text>'
+            for j, part in enumerate(textwrap.wrap(label, 24))
+        )
+        divider = f'<line x1="{x - 24}" y1="178" x2="{x - 24}" y2="278" stroke="{t["line"]}"/>' if i else ""
+        tiles.append(
+            f'{divider}<text x="{x}" y="226" font-family="{SANS}" font-size="52" font-weight="700" fill="{t["accent"]}">{escape(big)}</text>{rows}'
+        )
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="350" viewBox="0 0 1000 350" role="img" aria-label="{escape(c['name'])}: {escape(c['line'])}">
+  <rect x="0.5" y="0.5" width="999" height="349" rx="16" fill="{t['panel']}" stroke="{t['line']}"/>
+  <circle cx="38" cy="44" r="4" fill="{t['accent']}"/>
+  <text x="52" y="49" font-family="{MONO}" font-size="13" letter-spacing="3" fill="{t['accent']}">{escape(c['kicker'])}</text>
+  <text x="968" y="49" text-anchor="end" font-family="{MONO}" font-size="13" fill="{t['muted']}">{escape(c['stack'])}</text>
+  <text x="32" y="102" font-family="{SANS}" font-size="40" font-weight="700" fill="{t['text']}">{escape(c['name'])}</text>
+  <text x="32" y="134" font-family="{SANS}" font-size="19" fill="{t['muted']}">{escape(c['line'])}</text>
+  <line x1="32" y1="158" x2="968" y2="158" stroke="{t['line']}"/>
+  {"".join(tiles)}
+  <line x1="32" y1="298" x2="968" y2="298" stroke="{t['line']}"/>
+  <text x="32" y="329" font-family="{SANS}" font-size="16" fill="{t['text']}">{escape(c['proof'])}</text>
 </svg>
 """
 
 
 def card_mobile(c: dict, t: dict) -> str:
-    """480x600 portrait card, served to phones through <picture>. Two still sit
-    side by side, but the taller shape leaves room for text you can read."""
-    big, small = c["metric"]
+    """600-wide portrait card for phones, served through <picture>: same content,
+    numbers in a stacked list and text sized to stay readable at ~60% scale."""
 
-    def lines(text: str, width: int, x: int, y: int, step: int, size: int, fill: str, weight: str = "400") -> str:
+    def lines(text: str, width: int, x: int, y: int, step: int, size: int, fill: str, family: str = SANS) -> str:
         return "".join(
-            f'<text x="{x}" y="{y + i * step}" font-family="{SANS}" font-size="{size}" font-weight="{weight}" fill="{fill}">{escape(part)}</text>'
+            f'<text x="{x}" y="{y + i * step}" font-family="{family}" font-size="{size}" fill="{fill}">{escape(part)}</text>'
             for i, part in enumerate(textwrap.wrap(text, width))
         )
 
-    name_rows = textwrap.wrap(c["name"], 11)
-    y = 136 + (len(name_rows) - 1) * 62
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-label="{escape(c['name'])}: {escape(c['line'])}">
-  <rect x="1" y="1" width="478" height="598" rx="26" fill="{t['panel']}" stroke="{t['line']}" stroke-width="2"/>
-  <circle cx="44" cy="58" r="7" fill="{t['accent']}"/>
-  <text x="62" y="68" font-family="{MONO}" font-size="26" letter-spacing="2" fill="{t['accent']}">{escape(c['kicker'])}</text>
-  {lines(c['name'], 11, 34, 136, 62, 58, t['text'], "700")}
-  {lines(c['line'], 20, 36, y + 64, 46, 38, t['muted'])}
-  {extra(c, 36, 384, 26, t['accent'])}
-  <line x1="36" y1="410" x2="444" y2="410" stroke="{t['line']}" stroke-width="2"/>
-  <text x="32" y="504" font-family="{SANS}" font-size="88" font-weight="700" fill="{t['accent']}">{escape(big)}</text>
-  {lines(small, 20, 36, 554, 44, 36, t['muted'])}
+    tiles = []
+    for i, (big, label) in enumerate(c["tiles"]):
+        top = 244 + i * 104
+        label_rows = textwrap.wrap(label, 20)
+        first = top + 54 - (len(label_rows) - 1) * 14
+        tiles.append(
+            f'<line x1="36" y1="{top}" x2="564" y2="{top}" stroke="{t["line"]}"/>'
+            f'<text x="34" y="{top + 72}" font-family="{SANS}" font-size="64" font-weight="700" fill="{t["accent"]}">{escape(big)}</text>'
+            + lines(label, 20, 300, first, 28, 22, t["muted"], MONO)
+        )
+    proof_rows = textwrap.wrap(c["proof"], 38)
+    proof_y = 712
+    stack_y = proof_y + len(proof_rows) * 34 + 18
+    height = stack_y + 40
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="600" height="{height}" viewBox="0 0 600 {height}" role="img" aria-label="{escape(c['name'])}: {escape(c['line'])}">
+  <rect x="1" y="1" width="598" height="{height - 2}" rx="24" fill="{t['panel']}" stroke="{t['line']}" stroke-width="2"/>
+  <circle cx="44" cy="54" r="7" fill="{t['accent']}"/>
+  <text x="62" y="62" font-family="{MONO}" font-size="22" letter-spacing="3" fill="{t['accent']}">{escape(c['kicker'])}</text>
+  <text x="34" y="132" font-family="{SANS}" font-size="60" font-weight="700" fill="{t['text']}">{escape(c['name'])}</text>
+  {lines(c['line'], 34, 36, 176, 34, 26, t['muted'])}
+  <line x1="36" y1="244" x2="564" y2="244" stroke="{t['line']}" stroke-width="2"/>
+  {"".join(tiles)}
+  <line x1="36" y1="660" x2="564" y2="660" stroke="{t['line']}" stroke-width="2"/>
+  {lines(c['proof'], 38, 36, proof_y, 34, 26, t['text'])}
+  <text x="36" y="{stack_y}" font-family="{MONO}" font-size="20" fill="{t['muted']}">{escape(c['stack'])}</text>
 </svg>
 """
 

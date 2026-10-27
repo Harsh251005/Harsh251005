@@ -12,13 +12,11 @@ below comes from a real evaluation run.
 
 <br>
 
-<a href="https://github.com/Harsh251005/clinic-voice-agent"><picture><source media="(max-width: 600px)" srcset="assets/card-clinicdesk-mobile.svg"><img src="assets/card-clinicdesk.svg" width="49%" alt="ClinicDesk: a Hindi voice receptionist for Indian clinics"></picture></a>
-<a href="https://github.com/Harsh251005/Evident-AI"><picture><source media="(max-width: 600px)" srcset="assets/card-evident-mobile.svg"><img src="assets/card-evident.svg" width="49%" alt="Evident AI: answers over PDFs that cite the page they came from"></picture></a>
-<a href="https://github.com/Harsh251005/PhoenixAI"><picture><source media="(max-width: 600px)" srcset="assets/card-phoenix-mobile.svg"><img src="assets/card-phoenix.svg" width="49%" alt="Phoenix AI: describe an app in English, get a project that runs"></picture></a>
-<a href="https://github.com/Harsh251005/payment-agent"><picture><source media="(max-width: 600px)" srcset="assets/card-payment-mobile.svg"><img src="assets/card-payment.svg" width="49%" alt="Payment Agent: collects a payment end to end, in conversation"></picture></a>
+<a href="https://github.com/Harsh251005/clinic-voice-agent"><picture><source media="(max-width: 600px)" srcset="assets/card-clinicdesk-mobile.svg"><img src="assets/card-clinicdesk.svg" width="100%" alt="ClinicDesk: a Hindi voice receptionist for Indian clinics. About 650ms p50 voice-to-voice, 520+ backend tests, 44 browser tests, no audio stored."></picture></a>
 
-<sub><b>Now:</b> taking ClinicDesk from the browser to real phone lines, and to a first clinic pilot.</sub><br>
-<sub>Also on the bench: [ApplyTrack AI](https://github.com/Harsh251005/applytrack-ai) · [Tabula AI](https://github.com/Harsh251005/Tabula-AI) · [TruthLens AI](https://github.com/Harsh251005/TruthLens-AI) · [InsightForge](https://github.com/Harsh251005/InsightForge) · [DSA, one day at a time](https://github.com/Harsh251005/data-structures-and-algorithms)</sub>
+<a href="https://github.com/Harsh251005/Evident-AI"><picture><source media="(max-width: 600px)" srcset="assets/card-evident-mobile.svg"><img src="assets/card-evident.svg" width="100%" alt="Evident AI: answers over PDFs that cite the page they came from. 0.975 faithfulness, 46 of 50 questions with grounded citations, 0.900 context recall, 0.865 composite score."></picture></a>
+
+<sub><b>Now:</b> taking ClinicDesk from the browser to real phone lines, and to a first clinic pilot.</sub>
 
 <br>
 

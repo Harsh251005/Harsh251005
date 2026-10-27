@@ -1,26 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="230" viewBox="0 0 480 230" role="img" aria-label="Evident AI: Answers over PDFs that cite the page they came from">
-  <style>
-    .compact { display: none; }
-    @media (max-width: 260px) { .full { display: none; } .compact { display: inline; } }
-  </style>
-  <rect x="0.5" y="0.5" width="479" height="229" rx="14" fill="#161b22" stroke="#30363d"/>
-  <g class="full">
-    <circle cx="32" cy="36" r="3.5" fill="#f5a524"/>
-    <text x="44" y="40" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" letter-spacing="2.5" fill="#f5a524">RAG</text>
-    <text x="28" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#e6edf3">Evident AI</text>
-    <text x="28" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="15" fill="#8b949e">Answers over PDFs that cite the page they came from</text>
-    <line x1="28" y1="122" x2="452" y2="122" stroke="#30363d"/>
-    <text x="28" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#e6edf3">0.975</text>
-    <text x="28" y="182" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#8b949e">faithfulness</text>
-    <text x="168" y="158" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" fill="#e6edf3">Every claim cites its page; CI fails</text>
-    <text x="168" y="178" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" fill="#8b949e">any build that scores below 0.80.</text>
-    <text x="28" y="212" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="11.5" fill="#8b949e">Qdrant · BM25 + dense · RAGAS</text>
-    
-  </g>
-  <g class="compact">
-    <circle cx="40" cy="44" r="8" fill="#f5a524"/>
-    <text x="30" y="108" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="#e6edf3">Evident AI</text>
-    <text x="30" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="56" font-weight="700" fill="#f5a524">0.975</text>
-    <text x="32" y="214" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" fill="#8b949e">faithfulness</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="350" viewBox="0 0 1000 350" role="img" aria-label="Evident AI: Answers over PDFs that cite the page they came from">
+  <rect x="0.5" y="0.5" width="999" height="349" rx="16" fill="#161b22" stroke="#30363d"/>
+  <circle cx="38" cy="44" r="4" fill="#f5a524"/>
+  <text x="52" y="49" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" letter-spacing="3" fill="#f5a524">RAG</text>
+  <text x="968" y="49" text-anchor="end" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8b949e">Qdrant · BM25 + dense · RAGAS</text>
+  <text x="32" y="102" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#e6edf3">Evident AI</text>
+  <text x="32" y="134" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="19" fill="#8b949e">Answers over PDFs that cite the page they came from</text>
+  <line x1="32" y1="158" x2="968" y2="158" stroke="#30363d"/>
+  <text x="32" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="52" font-weight="700" fill="#f5a524">0.975</text><text x="32" y="256" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#8b949e">faithfulness (RAGAS)</text><line x1="244" y1="178" x2="244" y2="278" stroke="#30363d"/><text x="268" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="52" font-weight="700" fill="#f5a524">46/50</text><text x="268" y="256" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#8b949e">questions with grounded</text><text x="268" y="276" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#8b949e">citations</text><line x1="480" y1="178" x2="480" y2="278" stroke="#30363d"/><text x="504" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="52" font-weight="700" fill="#f5a524">0.900</text><text x="504" y="256" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#8b949e">context recall</text><line x1="716" y1="178" x2="716" y2="278" stroke="#30363d"/><text x="740" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="52" font-weight="700" fill="#f5a524">0.865</text><text x="740" y="256" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#8b949e">composite; CI gate is</text><text x="740" y="276" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#8b949e">0.80</text>
+  <line x1="32" y1="298" x2="968" y2="298" stroke="#30363d"/>
+  <text x="32" y="329" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" fill="#e6edf3">Every claim cites its page, and CI fails any build below 0.80. Scored on a 50-question golden set.</text>
 </svg>
