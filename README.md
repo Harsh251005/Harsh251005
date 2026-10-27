@@ -15,16 +15,28 @@ agents, and tool actions enforced in code rather than left to prompts.
 
 <a href="https://github.com/Harsh251005/Evident-AI"><picture><source media="(max-width: 600px)" srcset="assets/card-evident-mobile.svg"><img src="assets/card-evident.svg" width="100%" alt="Evident AI: answers over PDFs that cite the page they came from. 0.975 faithfulness, 46 of 50 questions with grounded citations, 0.900 context recall, 0.865 composite score."></picture></a>
 
-<sub><b>Selected work:</b> <a href="https://github.com/Harsh251005/clinic-voice-agent">ClinicDesk</a> — a Hindi/English voice receptionist with code-enforced booking confirmation. <a href="https://github.com/Harsh251005/Evident-AI">Evident AI</a> — document RAG with hybrid retrieval, reranking, page citations, and a CI quality gate; its documented 50-question evaluation (last verified 2026-09-10) reports 0.975 faithfulness and 46/50 questions with grounded citations. <a href="https://smith.langchain.com/public/4dbe49ea-ed0d-41cf-8dcc-881bfa25e172/d">Public evaluation trace</a>.</sub>
+**Evident AI · Evaluation:** [View the public evaluation trace](https://smith.langchain.com/public/4dbe49ea-ed0d-41cf-8dcc-881bfa25e172/d) — results from a documented 50-question evaluation.
 
-<br><br>
+---
 
-<sub><b>Current focus:</b> extending ClinicDesk from browser calls to phone lines, and pursuing a first clinic pilot.</sub>
+### 🚀 Currently Building
 
-<br>
+Taking [ClinicDesk](https://github.com/Harsh251005/clinic-voice-agent) from browser-based calls to real phone lines, with the goal of launching a first clinic pilot.
 
-<p align="center">
-  <a href="https://www.linkedin.com/in/harsh-dharnidharka/">LinkedIn</a> ·
-  <a href="mailto:dharnidharkaharsh@gmail.com">dharnidharkaharsh@gmail.com</a><br>
-  <sub>BSc IT, University of Mumbai · National karate gold medallist · Open to Applied AI roles at early-stage startups</sub>
-</p>
+### 🛠️ Core Interests
+
+- **Agentic AI:** Tool calling, workflow orchestration, and reliable agent execution
+- **RAG & Evaluation:** Hybrid retrieval, reranking, grounded citations, and measurable quality
+- **Voice AI:** Multilingual conversational systems with low latency and controlled actions
+
+### 🤝 Connect
+
+[**LinkedIn**](https://www.linkedin.com/in/harsh-dharnidharka/) · [**Email**](mailto:dharnidharkaharsh@gmail.com)
+
+---
+
+🎓 **Education:** B.Sc. IT, University of Mumbai
+
+🥋 **Achievement:** National Karate Gold Medallist
+
+💼 **Open to:** Applied AI / LLM Engineering roles at early-stage startups
