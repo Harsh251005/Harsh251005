@@ -5,10 +5,9 @@
 
 <br>
 
-Most AI demos stop at a good answer. My work starts there: making agents
-retrieve the right evidence, wait for a yes before they act, and fail loudly
-instead of quietly. The rules that matter live in code, and every number
-below comes from a real evaluation run.
+Applied AI engineer building LLM systems designed to be evaluated, traced, and
+constrained in real workflows: evidence-grounded retrieval, multilingual voice
+agents, and tool actions enforced in code rather than left to prompts.
 
 <br>
 
@@ -16,7 +15,11 @@ below comes from a real evaluation run.
 
 <a href="https://github.com/Harsh251005/Evident-AI"><picture><source media="(max-width: 600px)" srcset="assets/card-evident-mobile.svg"><img src="assets/card-evident.svg" width="100%" alt="Evident AI: answers over PDFs that cite the page they came from. 0.975 faithfulness, 46 of 50 questions with grounded citations, 0.900 context recall, 0.865 composite score."></picture></a>
 
-<sub><b>Now:</b> taking ClinicDesk from the browser to real phone lines, and to a first clinic pilot.</sub>
+<sub><b>Selected work:</b> <a href="https://github.com/Harsh251005/clinic-voice-agent">ClinicDesk</a> — a Hindi/English voice receptionist with code-enforced booking confirmation. <a href="https://github.com/Harsh251005/Evident-AI">Evident AI</a> — document RAG with hybrid retrieval, reranking, page citations, and a CI quality gate; its documented 50-question evaluation (last verified 2026-09-10) reports 0.975 faithfulness and 46/50 questions with grounded citations. <a href="https://smith.langchain.com/public/4dbe49ea-ed0d-41cf-8dcc-881bfa25e172/d">Public evaluation trace</a>.</sub>
+
+<br><br>
+
+<sub><b>Current focus:</b> extending ClinicDesk from browser calls to phone lines, and pursuing a first clinic pilot.</sub>
 
 <br>
 
